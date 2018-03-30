@@ -10,6 +10,11 @@ public class PlayerController : MonoBehaviour
 
 	private bool lookLeft;
 
+	public Transform groundCheck;
+	private bool grounded;
+	public bool atacking;
+	public LayerMask whatIsGround;
+
 	public float speed, jumpForce;
 
 	private int idAnimation;
@@ -26,6 +31,7 @@ public class PlayerController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
+		grounded = Physics2D.OverlapCircle(groundCheck.position, 0.02f, whatIsGround);
 		playerRb.velocity = new Vector2(h*speed, playerRb.velocity.y);
 	}
 
@@ -56,7 +62,15 @@ public class PlayerController : MonoBehaviour
 		{
 			idAnimation = 0;
 		}
+
+		if (Input.GetButtonDown("Jump") && grounded)
+		{
+			playerRb.AddForce(new Vector2(0, jumpForce));
+		}
+		
 		playerAnimator.SetInteger("idAnimation", idAnimation);
+		playerAnimator.SetBool("grounded", grounded);
+		playerAnimator.SetFloat("speedY", playerRb.velocity.y);
 	}
 	void flip(){
 		lookLeft = !lookLeft;
