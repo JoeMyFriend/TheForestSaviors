@@ -286,7 +286,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   speed: 3
-  jumpForce: 200
+  jumpForce: 250
 --- !u!1 &1037715480
 GameObject:
   m_ObjectHideFlags: 0
